@@ -1,9 +1,12 @@
 const std = @import("std");
+const Io = std.Io;
 const ButterKnife = @import("butterknife").ButterKnife;
 
-pub fn main() !void {
+pub fn main(init: std.process.Init) !void {
+    const io = init.io;
+
     var stdout_buffer: [4096]u8 = undefined;
-    var stdout_writer = std.fs.File.stdout().writer(&stdout_buffer);
+    var stdout_writer = Io.File.stdout().writer(io, &stdout_buffer);
     const stdout = &stdout_writer.interface;
 
     try stdout.print("ButterKnife TPRF Implementation\n", .{});
